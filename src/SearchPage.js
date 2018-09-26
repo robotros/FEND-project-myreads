@@ -12,16 +12,25 @@ import PropTypes from 'prop-types'
 class SearchPage extends Component {
    state = {books:[], query:''}
 
+  /**
+  * Update Query State
+  * @param event - Change Event of element
+  */
   updateQuery = (event) => {
     this.setState({query: event.target.value.trim()});
     this.searchBooks(event.target.value.trim());
   }
 
+  /**
+  * API call to search for books matching query
+  * @param {string} q - query string for API call
+  */
   searchBooks = (q) => {
+    // check if query is empty
     if(q!=='') {
       BooksAPI.search(q, 20)
         .then((results) => {
-          //console.log(results);
+          // check if query returned results
           if (results.length > 0){
             let newResults = results.filter((set => r => !set.has(r.id))(new Set(this.props.onShelfs.map(b => b.id))));
             let shelfResults = this.props.onShelfs.filter((set => b => set.has(b.id))(new Set(results.map(r => r.id))));
@@ -69,7 +78,13 @@ class SearchPage extends Component {
 }
 
 SearchPage.propTypes = {
+  /**
+  * Function to Change shelf of a book
+  */
   onUpdateShelf: PropTypes.func.isRequired,
+  /**
+  * Array of books currently on shelfs
+  */
   onShelfs: PropTypes.array.isRequired,
 }
 
