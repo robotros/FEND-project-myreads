@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
-import BookShelfChanger from './BookShelfChanger'
-import Author from './Author'
-import PropTypes from 'prop-types'
+import BookShelfChanger from './BookShelfChanger';
+import Author from './Author';
+import PropTypes from 'prop-types';
 
 
 /**
@@ -10,7 +10,10 @@ import PropTypes from 'prop-types'
 * @author [Aron Roberts](https://github.com/robotros)
 */
 class Book extends Component {
-
+  /**
+  * Render Component into html
+  * @return {Component} html
+  */
   render() {
     const details = this.props.details;
     // placeholder image from: https://blog.springshare.com/2010/02/03/no-cover-art-placeholder-images/
@@ -28,7 +31,6 @@ class Book extends Component {
         <Author author={details.authors}/>
       </div>
     );
-
   }
 }
 
@@ -41,7 +43,7 @@ Book.propTypes = {
   * A book
   */
   details: PropTypes.object.isRequired,
-}
+};
 
 
 export default Book;

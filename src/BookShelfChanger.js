@@ -1,24 +1,29 @@
 import React, {Component} from 'react';
 import './App.css';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 
 /**
 * React Component to Render a the Selector to Change a book shelf
 * @author [Aron Roberts](https://github.com/robotros)
+* @param {event} event
 */
 class BookShelfChanger extends Component {
-  state ={value:'move'}
+  state = {value: 'move'}
 
   componentDidMount() {
     this.setState({value: this.props.book.shelf ? this.props.book.shelf : 'none'});
-  };
+  }
 
   onChange = (event) => {
     this.props.onUpdateShelf(this.props.book, event.target.value);
-    this.setState({value: event.target.value });
-     }
+    this.setState({value: event.target.value});
+  }
 
+  /**
+  * Render Component into html
+  * @return {Component} html
+  */
   render() {
     return (
       <div className='book-shelf-changer'>
@@ -31,7 +36,6 @@ class BookShelfChanger extends Component {
         </select>
       </div>
     );
-
   }
 }
 
@@ -44,6 +48,6 @@ BookShelfChanger.propTypes = {
   * Current Book
   */
   book: PropTypes.object.isRequired,
-}
+};
 
 export default BookShelfChanger;
