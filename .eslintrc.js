@@ -2,11 +2,12 @@ module.exports = {
     "env": {
         "browser": true
     },
-    "extends": ["eslint:recommended", "google"],
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
     "parserOptions": {
-        "ecmaVersion": 6
+        "ecmaVersion": 6,
+        "sourceType": "module",
     },
     "rules": {
 
-    }
+    },
 };
