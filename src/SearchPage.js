@@ -3,9 +3,14 @@ import {Link} from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import './App.css';
 import BookShelf from './BookShelf';
+import PropTypes from 'prop-types'
 
+/**
+* React Component to Render the Search page.
+* @author [Aron Roberts](https://github.com/robotros)
+*/
 class SearchPage extends Component {
-  state = {books:[], query:''}
+   state = {books:[], query:''}
 
   updateQuery = (event) => {
     this.setState({query: event.target.value.trim()});
@@ -13,17 +18,28 @@ class SearchPage extends Component {
   }
 
   searchBooks = (q) => {
-    BooksAPI.search(q, 20).then((results) => {
-      
-      let newResults= results.filter((set => r => !set.has(r.id))(new Set(this.props.onShelfs.map(b => b.id))));
-      let shelfResults = this.props.onShelfs.filter((set => b => set.has(b.id))(new Set(results.map(r => r.id))));
-      let resultsList = shelfResults.concat(newResults);
-      
-      resultsList.length > 0 ?  this.setState({books: resultsList}) : this.setState({books: []});
-     //results.length > 0 ?  this.setState({books: results}) : this.setState({books: []});
-    })
+    if(q!=='') {
+      BooksAPI.search(q, 20)
+        .then((results) => {
+          //console.log(results);
+          if (results.length > 0){
+            let newResults = results.filter((set => r => !set.has(r.id))(new Set(this.props.onShelfs.map(b => b.id))));
+            let shelfResults = this.props.onShelfs.filter((set => b => set.has(b.id))(new Set(results.map(r => r.id))));
+            let resultsList = shelfResults.concat(newResults);
+            this.setState({books: resultsList});
+          }else{
+            this.setState({books: []});
+          }
+        })
+        .catch((err) => {
+          this.setState({books:[]});
+          console.error(err);
+        })
+    }else{
+      this.setState({books:[]});
+    }
   }
- 
+
   render() {
     return (
       <div className="search-books">
@@ -45,11 +61,16 @@ class SearchPage extends Component {
               <BookShelf
                 onUpdateShelf={this.props.onUpdateShelf}
                 title='Search Results'
-                books={this.state.books}/> 
+                books={this.state.books}/>
         </div>
       </div>
     )
   }
+}
+
+SearchPage.propTypes = {
+  onUpdateShelf: PropTypes.func.isRequired,
+  onShelfs: PropTypes.array.isRequired,
 }
 
 export default SearchPage;
