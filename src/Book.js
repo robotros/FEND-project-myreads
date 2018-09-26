@@ -12,9 +12,9 @@ import PropTypes from 'prop-types'
 class Book extends Component {
 
   render() {
-    const details = this.props.details
+    const details = this.props.details;
     // placeholder image from: https://blog.springshare.com/2010/02/03/no-cover-art-placeholder-images/
-    const noCoverArt ='http://lgimages.s3.amazonaws.com/nc-md.gif'
+    const noCoverArt ='http://lgimages.s3.amazonaws.com/nc-md.gif';
 
     return (
       <div className='book'>
