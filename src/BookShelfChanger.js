@@ -10,21 +10,30 @@ import PropTypes from 'prop-types';
 * @param {event} event
 */
 class BookShelfChanger extends Component {
-  state = {value: 'move'}
+  state = {
+    value: 'move',
+    target: 'none',
+  }
 
   /**
   * React Method to get book data once component mounts
   */
   componentDidMount() {
-    this.setState({value: this.props.book.shelf ? this.props.book.shelf : 'none'});
+    this.setState(
+        {value: this.props.book.shelf ? this.props.book.shelf : 'none'});
   }
 
   onChange = (event) => {
+    this.setState({target: event.target.value});
     this.props.onUpdateShelf(this.props.book, event.target.value)
-      .then(this.setState({value: this.props.book.shelf ? this.props.book.shelf : 'none'}))
-      .catch((error) => {
-        console.error(error);
-      });
+        .then(()=>{
+          this.setState(
+              {value: this.props.book.shelf ? this.props.book.shelf : this.state.target}
+          );
+        })
+        .catch((error) => {
+          console.error(error);
+        });
   }
 
   /**
@@ -51,6 +60,10 @@ BookShelfChanger.propTypes = {
   * Function to Change shelf of a book
   */
   onUpdateShelf: PropTypes.func.isRequired,
+  /**
+  * Function to Change shelf of a book
+  */
+  onSearchUpdate: PropTypes.func,
   /**
   * Current Book
   */

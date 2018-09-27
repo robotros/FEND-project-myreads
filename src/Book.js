@@ -22,10 +22,14 @@ class Book extends Component {
     return (
       <div className='book'>
         <div className='book-top'>
-          <img className='book-cover' alt={details.title} src={details.imageLinks ? details.imageLinks.thumbnail : noCoverArt} ></img>
+          <img className='book-cover'
+            alt={details.title}
+            src={details.imageLinks ? details.imageLinks.thumbnail : noCoverArt}>
+          </img>
           <BookShelfChanger
             book={details}
-            onUpdateShelf={this.props.onUpdateShelf}/>
+            onUpdateShelf={this.props.onUpdateShelf}
+            onSearchUpdate={this.props.onSearchUpdate}/>
         </div>
         <div className='book-title'>{details.title}</div>
         <Author author={details.authors}/>
@@ -39,6 +43,10 @@ Book.propTypes = {
   * Function to Change shelf of a book
   */
   onUpdateShelf: PropTypes.func.isRequired,
+  /**
+  * Function to update a search book shelf
+  */
+  onSearchUpdate: PropTypes.func,
   /**
   * A book
   */

@@ -25,7 +25,11 @@ class BookShelf extends Component {
           <ol className='books-grid'>
             {shelf.books.map((book, index) => (
               <li key={index}>
-                <Book details={book} onUpdateShelf={this.props.onUpdateShelf}/>
+                <Book
+                  details={book}
+                  onUpdateShelf={this.props.onUpdateShelf}
+                  onSearchUpdate={this.props.onSearchUpdate}
+                />
               </li>))
             }
           </ol>
@@ -40,6 +44,7 @@ BookShelf.propTypes = {
   * Function to Change shelf of a book
   */
   onUpdateShelf: PropTypes.func.isRequired,
+  onSearchUpdate: PropTypes.func,
   /**
   * The title of the Book Shelf
   */
