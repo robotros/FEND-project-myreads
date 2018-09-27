@@ -1,3 +1,4 @@
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 import React, {Component} from 'react';
 import './App.css';
 import PropTypes from 'prop-types';
@@ -11,13 +12,19 @@ import PropTypes from 'prop-types';
 class BookShelfChanger extends Component {
   state = {value: 'move'}
 
+  /**
+  * React Method to get book data once component mounts
+  */
   componentDidMount() {
     this.setState({value: this.props.book.shelf ? this.props.book.shelf : 'none'});
   }
 
   onChange = (event) => {
-    this.props.onUpdateShelf(this.props.book, event.target.value);
-    this.setState({value: event.target.value});
+    this.props.onUpdateShelf(this.props.book, event.target.value)
+      .then(this.setState({value: this.props.book.shelf ? this.props.book.shelf : 'none'}))
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   /**

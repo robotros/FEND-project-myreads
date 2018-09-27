@@ -29,12 +29,18 @@ class BooksApp extends React.Component {
   * Method to handle a book changing shelves
   * @param {object} book - book object to move
   * @param {string} shelf - the name of the shelf
+  * @return {promise} Promise
   */
   handleChangeShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then((response) => {
-      this.getBooksOnShelf();
-    });
-  };
+      return new Promise((resolve, reject)=>{
+        BooksAPI.update(book, shelf)
+          .then((response) => {
+            this.getBooksOnShelf();
+          })
+          .then(resolve(true))
+          .catch(reject(Error('Promise Failed')));
+      });
+    };
 
   /**
   * Method to get books and update state

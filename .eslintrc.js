@@ -1,6 +1,7 @@
 module.exports = {
     "env": {
-        "browser": true
+        "browser": true,
+        "es6": true,
     },
 
     "extends": ["eslint:recommended", "plugin:react/recommended", "google"],
@@ -11,7 +12,7 @@ module.exports = {
         "ecmaFeatures": {
             "jsx": true,
             "modules": true,
-            "experimentalObjectRestSpread": true
+            "experimentalObjectRestSpread": true,
         }
     },
     "plugins": ["react"],
